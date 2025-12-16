@@ -15,8 +15,8 @@
 #define SerialComm  Serial;
 
 #ifdef DEBUG
-  #define DEBUG_PRINT(...) SerialComm.print(__VA_ARGS__)
-  #define DEBUG_PRINTLN(...) SerialComm.println(__VA_ARGS__)
+  #define DEBUG_PRINT(...) Serial.print(__VA_ARGS__) // KHÔNG CÓ DẤU CHẤM PHẨY
+  #define DEBUG_PRINTLN(...) Serial.println(__VA_ARGS__) // KHÔNG CÓ DẤU CHẤM PHẨY
 #else
   #define DEBUG_PRINT(...)
   #define DEBUG_PRINTLN(...)
@@ -118,7 +118,7 @@ long location_long, location_lat;
 
 void setup() {
   // 1. Khởi tạo Serial 0 (SerialComm) và Remap
-  SerialComm.begin(COMM_BAUD); 
+  SerialComm.begin(COMM_BAUD);
   delay(100);
   setupGPRS_MQTT();
   setup_GPS();
@@ -151,12 +151,12 @@ void loop() {
     }
   }
   if (TimeReached(time_30second)) {
-    SetNextTimeInterval(time_30second, step_30akas*1000);
+    SetNextTimeInterval(time_30second, step_30s*1000);
     smartDelay();
   }
   
-  if (TimeReached(time_60second)) {
-    SetNextTimeInterval(time_60second, step_60s*1000);
+  if (TimeReached(time_1minute)) {
+    SetNextTimeInterval(time_1minute, step_1m*1000);
     sendTelemetryData();
   }
 }
