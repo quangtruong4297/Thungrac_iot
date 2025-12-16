@@ -3,6 +3,7 @@ void setup_HC() {
   // Khởi tạo chân HC-SR04
   pinMode(TRIG_PIN, OUTPUT);
   pinMode(ECHO_PIN, INPUT);
+  DEBUG_PRINTLN("HC settup ");
 }
 
 // -----------------------------------------------------------------
@@ -13,14 +14,14 @@ void HC_loop() {
   distance = measureDistanceCM();
   fill_percent = calculateFillPercent(distance);
   
-  Serial.print("Khoang cach (cm): ");
+  DEBUG_PRINTLN("Khoang cach (cm): ");
   if (distance > 0) {
-      Serial.print(distance);
-      Serial.print(" | Phan tram day: ");
-      Serial.print(fill_percent, 1);
-      Serial.println("%");
+      DEBUG_PRINTLN(distance);
+      DEBUG_PRINTLN(" | Phan tram day: ");
+      DEBUG_PRINTLN(fill_percent, 1);
+      DEBUG_PRINTLN("%");
   } else {
-      Serial.println("LOI: Cam bien timeout (Qua xa hoac loi dau noi/nguon).");
+      DEBUG_PRINTLN("LOI: Cam bien timeout (Qua xa hoac loi dau noi/nguon).");
       fill_percent = -1;
   }
   
